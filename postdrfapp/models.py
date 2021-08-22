@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.db.models.fields.related import ForeignKey
 from django.utils.translation import ugettext as _
-
+from PIL import Image
 # Create your models here.
 
 
@@ -83,6 +83,16 @@ class Post(models.Model):
     user = ForeignKey(CustomUser, on_delete=models.CASCADE)
     postuuid = models.PositiveSmallIntegerField(unique=True)
     post_type = models.ForeignKey(PostType, on_delete=models.DO_NOTHING)
+    image = models.ImageField(default ='default.jpg', upload_to ='images/%y/%m/%d/')
 
-    def __str__(self) -> str:
+    def __str__(self):
         return self.user.username
+    
+    def save(self,*args, **kwargs):
+        super().save(*args, **kwargs)
+        img = Image.open(self.image.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.image.path)

@@ -1,5 +1,5 @@
 from django.urls import path
-from postdrfapp.views import GenderAdd, GenderDelete, GenderList, PostDelete, PostDetail, PostList, PostTypeAdd, PostTypeDelete, PostTypeList, RegisterUser
+from postdrfapp.views import GenderAdd, GenderDelete, GenderList, PostAdd, PostDelete, PostDetail, PostList, PostTypeAdd, PostTypeDelete, PostTypeList, RegisterUser
 
 
 urlpatterns = [
@@ -8,6 +8,7 @@ urlpatterns = [
     path('gender/add', GenderAdd.as_view()),
     path('gender/delete/<int:pk>/', GenderDelete.as_view()),
     path('posts/', PostList.as_view()),
+    path('posts/add/', PostAdd.as_view()),
     path('posts/delete/<int:pk>/', PostDelete.as_view()),
     path('posts/detail/<int:pk>/', PostDetail.as_view()),
     path('posttype/', PostTypeList.as_view()),

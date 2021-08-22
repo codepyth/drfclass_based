@@ -15,8 +15,13 @@ class RegisterUser(generics.CreateAPIView):
     queryset = CustomUser
     serializer_class = UserSerializer
 
-# GET, POST
-class PostList(generics.ListCreateAPIView):
+# POST
+class PostAdd(generics.CreateAPIView):
+    queryset = Post
+    serializer_class = PostSerializer
+
+# GET
+class PostList(generics.ListAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
