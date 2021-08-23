@@ -70,6 +70,9 @@ class CustomUser(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
+        
+    def __str__(self):
+        return self.username
 
 
 class PostType(models.Model):
@@ -82,7 +85,7 @@ class PostType(models.Model):
 class Post(models.Model):
     user = ForeignKey(CustomUser, on_delete=models.CASCADE)
     postuuid = models.PositiveSmallIntegerField(unique=True)
-    post_type = models.ForeignKey(PostType, on_delete=models.DO_NOTHING)
+    posttype = models.ForeignKey(PostType, on_delete=models.DO_NOTHING)
     image = models.ImageField(default ='default.jpg', upload_to ='images/%y/%m/%d/')
 
     def __str__(self):
